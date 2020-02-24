@@ -14,6 +14,7 @@
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/style.css">
+	<script src="js/main.js"></script>
 </head>
 <body>
 
@@ -72,7 +73,7 @@
 				<br>
 				<input type="hidden" name="action" id="action">
 				<input type="hidden" name="old_name" id="old_name">
-				<input type="button" name="folder_button" id="folder_button"
+				<input type="button" name="create_button" id="create_button"
 				       class="btn btn-info" value="Create">
 			</div>
 			<div class="modal-footer">
