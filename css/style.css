@@ -1,0 +1,38 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+/*----------header------------*/
+header{
+	font-family: Chiller;
+	background: #34ce57;
+	margin-bottom: 15px;
+}
+
+header div, footer div {
+	padding: 20px;
+}
+
+header h1{
+	color: #08741a;
+	font-size: 50px !important;
+}
+
+/*------main-----*/
+.brows-file{
+	margin: 15px 0;
+	width: 500px;
+	text-align: left;
+}
+
+/*-------footer-----*/
+footer{
+	font-family: Chiller;
+	background: #34ce57;
+	margin-top: 25px !important;
+}
+
+footer h5 {
+	color: #08741a;
+	text-align: center;
+}
