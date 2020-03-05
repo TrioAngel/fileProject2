@@ -52,6 +52,25 @@
 </body>
 </html>
 
+<div class="modal fade" role="dialog" id="folderModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><span>Create Folder</span></h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p>Enter Folder Name <input type="text" id="folder_name" name="folder_name" class="form-control"></p>
+				<input type="hidden" id="action" name="action">
+				<input type="button" id="folder_button" name="folder_button" class="btn btn-success" value="Create">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <script>
 	$(document).ready(function(){
 		load_item_list();
@@ -66,5 +85,31 @@
 				}
 			})
 		}
+
+		$(document).on('click', '#create_folder', function(){
+			$('#action').val('create');
+			$('#folder_name').val('');
+			$('#folder_button').val('Create');
+			$('#folderModal').modal('show');
+		})
+
+		$(document).on('click', '#folder_button', function(){
+			var folder_name = $('#folder_name').val();
+			var action = $('#action').val();
+			if(folder_name != ''){
+				$.ajax({
+					url: 'includes/action.php',
+					method: "POST",
+					data: {folder_name:folder_name, action:action},
+					success: function (data) {
+						$('#folderModal').modal('hide');
+						load_item_list();
+						alert(data);
+					}
+				})
+			} else {
+				alert('Enter Folder Name Please!!!')
+			}
+		})
 	})
 </script>

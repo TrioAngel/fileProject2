@@ -31,7 +31,7 @@ if(isset($_POST['action'])){
                         <td>' . $name . '</td>
                         <td>'. round(filesize("../directory/$name")/1024, 2 ).' Kb</td>
                         <td> '. $type .' </td>
-                        <td>'.date ("F d Y", filemtime("../directory/$name"))  .'</td>
+                        <td>'.date ("d.m.Y", filemtime("../directory/$name"))  .'</td>
                         <td><button type="button" name="delete" data-name="' . $name . '" class="delete btn btn-danger btn-xs">Delete</button></td>
                     </tr>
                 ';
@@ -47,6 +47,16 @@ if(isset($_POST['action'])){
     }
     $output .= '</table>';
     echo $output;
+  }
+
+  if ($_POST['action'] == 'create') {
+    $path = '../directory/' . $_POST['folder_name'];
+    if (!file_exists($path)) {
+      mkdir($path, 0777, true);
+      echo 'Folder Created';
+    } else {
+      echo 'Folder Already Created!!!';
+    }
   }
 
 }
