@@ -1,3 +1,34 @@
+<?php
+if(!file_exists('./directory')){
+	mkdir('./directory', 0777, true);
+}
+
+if(isset($_GET['directory'])){
+	$directory = $_GET['directory'];
+} else {
+	$directory = 'directory';
+}
+
+if(isset($_GET['sorted_by'])){
+	$sort['name'] = $_GET['sorted_by'];
+} else {
+	$sort['name'] = 'extension';
+}
+
+if(isset($_GET['sort_flag'])){
+	$sort_flag = (int)$_GET['sort_flag'];
+}else {
+	$sort_flag = 4;
+}
+
+require_once ('includes/fileshow.php');
+
+$data['page_url'] = './index.php';
+$files = new Fileshow($directory, $sort, $data['page_url']);
+$directoryArr = $files->getDirArr()[0];
+$searchArr = $files->getDirArr()[1];
+
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -28,15 +59,17 @@
 	    <form method="post" action="includes/upload.php" enctype="multipart/form-data">
 		    <input type="file" name="file">
 		    <input type="submit" name="upload_button" class="btn btn-success" value="Upload">
+		    <input type="hidden" name="directory" value="<?= $directory ?>">
 	    </form>
 	    <br>
     </div>
   </div>
 	<div class="container w-75">
 		<div id="show_all" name="show_all" class="table-responsive">
-
+			<?php
+				$files->showpage(0,5);
+			?>
 		</div>
-
 	</div>
 </main>
 
@@ -62,6 +95,8 @@
 			<div class="modal-body">
 				<p>Enter Folder Name <input type="text" id="folder_name" name="folder_name" class="form-control"></p>
 				<input type="hidden" id="action" name="action">
+				<input type="hidden" name="old_name" id="old_name">
+				<input type="hidden" name="path_name" id="path_name" value="<?= $directory ?>">
 				<input type="button" id="folder_button" name="folder_button" class="btn btn-success" value="Create">
 			</div>
 			<div class="modal-footer">
@@ -73,37 +108,28 @@
 
 <script>
 	$(document).ready(function(){
-		load_item_list();
-		function load_item_list() {
-			var action = "show";
-			$.ajax({
-				url: "includes/action.php",
-				method: "POST",
-				data: {action: action},
-				success: function (data) {
-					$('#show_all').html(data);
-				}
-			})
-		}
 
 		$(document).on('click', '#create_folder', function(){
 			$('#action').val('create');
 			$('#folder_name').val('');
 			$('#folder_button').val('Create');
+			$('#old_name').val('');
+			$('#change_title').text('Create Folder');
 			$('#folderModal').modal('show');
 		})
 
 		$(document).on('click', '#folder_button', function(){
 			var folder_name = $('#folder_name').val();
+			var old_name = $('#old_name').val();
+			var path_name = $('#path_name').val();
 			var action = $('#action').val();
 			if(folder_name != ''){
 				$.ajax({
 					url: 'includes/action.php',
 					method: "POST",
-					data: {folder_name:folder_name, action:action},
+					data: {folder_name:folder_name, old_name:old_name, path_name:path_name, action:action},
 					success: function (data) {
 						$('#folderModal').modal('hide');
-						load_item_list();
 						alert(data);
 					}
 				})

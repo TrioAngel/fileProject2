@@ -1,146 +1,86 @@
 <?php
 
-if(isset($_POST['action'])){
-  if($_POST['action'] == 'show'){
-    $folder = scandir('../directory');
-    $output = '
-      <table class="table table-bordered table-striped">
-            <tr>
-                <th><a href="includes/action.php?sort=name">Name</a></th>
-                <th><a href="includes/action.php?sort=size">Size</a></th>
-                <th><a href="includes/action.php?sort=type">Type</a></th>
-                <th><a href="includes/action.php?sort=date">Date</a></th>
-                <th>Delete</th>
-            </tr>
-    ';
-    if (count($folder) > 0 ) {
-      foreach ($folder as $name) {
-        $data = explode('.',$name);
-        if(is_array($data)){
-          $extention = end($data);
-          if($extention == $name){
-            $type = 'Folder';
-          } else {
-            $type = $extention;
-          }
-        }
+if (isset($_POST['#action'])){
 
-        if($name !== '.' && $name !== '..') {
-          $ext = explode('.', $name);
-          $fileName = $ext[0];
-          $output .= '
-                    <tr >
-                        <td width="35%"><form action="includes/action?cmd=rename" method="post" >
-                          <input type="hidden" name="old_name" value="'.$fileName.'">
-                          <input type="hidden" name="extention" value="'.$type.'">
-                          <input type="text" name="new_name" value="'.$fileName.'">
-                          <button type="submit" class="btn btn-warning">Rename</button>
-                        </form></td>
-                        <td>'. folderSize("../directory/$name") .'</td>
-                        <td> '. $type .' </td>
-                        <td>'.date ("d.m.Y", filemtime("../directory/$name"))  .'</td>
-                        <td> <form action="includes/action.php?cmd=delete" method="post">
-                               <input type="hidden" name="deletedName" value="directory/'.$name.'">
-                               <button type="submit" data-name="' . $name . '" class="delete btn btn-danger btn-xs">Delete</button>
-                          </form>
-                        </td>
-                    </tr>
-                ';
-        }
-      }
-    }
-    else {
-      $output .= '
-                <tr>
-                    <td colspan="6">No Folder Found</td>
-                </tr>
-            ';
-    }
-    $output .= '</table>';
-    echo $output;
-
+// get directory path
+  if (isset($_GET['directory'])){
+    $directory = $_GET['directory'];
+  } else{
+    $directory = 'directory/';
   }
 
-  if ($_POST['action'] == 'create') {
-    $path = '../directory/' . $_POST['folder_name'];
-    if (!file_exists($path)) {
+// create folder
+  if($_POST['action'] == 'create'){
+    $path = '../' . $_POST['path_name'] . '/' . $_POST['folder_name'];
+    if(!file_exists($path)){
       mkdir($path, 0777, true);
-      echo 'Folder Created';
+      echo 'Folder Creasted';
     } else {
-      echo 'Folder Already Created!!!';
+      echo 'Folder Already Created';
     }
   }
-
 }
 
-/*----------delete------------*/
+//////Sorting, Delete, Rename
 if(isset($_GET['cmd'])){
-  if($_GET['cmd'] == 'delete'){
-    $fileName = $_POST['deletedName'];
-    if(is_dir('../'.$fileName)){
-      $items = scandir('../'.$fileName);
-      foreach ($items as $item) {
-        if ($item == '.' && $item == '..'){
-          rmdir('../'.$fileName.'/'.$item);
-        } else {
-          unlink('../'.$fileName.'/'.$item);
-        }
-      }
-      rmdir('../'.$fileName);
-      header('location: ../index.php');
-    }else {
-      unlink('../' . $fileName);
+  $sort['name'] = $_GET['sorted_by'];
+  //// Sorting part
+  if($_GET['cmd'] == 'sorting'){
+    $sort['flag'] = $_GET['sort_flag'] == 3 ? 4 : 3;
+    $directory = $_GET['directory'];
+    if(is_dir('../' . $directory)){
+      header('location: ../index.php?directory=' . $directory . '&sorted_by=' . $sort['name'] . '&sort_flag=' . $sort['flag']);
+    } else {
       header('location: ../index.php');
     }
-
-  }elseif($_GET['cmd'] == 'rename'){
+  } elseif($_GET['cmd'] == 'delete'){
+// delete part
+    $directory = $_GET['directory'];
+    $sort['flag'] = $_GET['sort_flag'];
+    $deleteName = $_POST['deleteName'];
+    if(is_dir('../' . $deleteName)){
+      rmdir('../' . $deleteName);
+      header('location: ../index.php?directory=' . $directory . '&sorted_by=' . $sort['name'] . '&sort_flag=' . $sort['flag']);
+    } else {
+      unlink('../' . $deleteName);
+      header('location: ../index.php?directory=' . $directory . '&sorted_by=' . $sort['name'] . '&sort_flag=' . $sort['flag']);
+    }
+  } elseif($_GET['cmd'] == 'rename'){
+//rename part
     $old_name = $_POST['old_name'];
     $new_name = $_POST['new_name'];
-    if ($old_name == $new_name) {
-      header('location: ../index.php?old');
+    $directory = $_GET['directory'];
+    if($old_name == $new_name){
+      header('location: ../index.php?directory=' . $directory . '&sorted_by=' . $sort['name'] . '&sort_flag=' . $sort['flag']);
     }
-    $extention = $_POST['extention'];
-    if($extention == 'Folder'){
+    $extension = $_POST['extension'];
+    if($extension == 'folder'){
       $inc = '';
-      while(is_dir('../directory/' . $new_name . $inc) || is_dir('../directory/' . $new_name . '(' . $inc . ')')){
+      while(is_dir('../' . $directory . '/' . $new_name . $inc) || is_dir('../' . $directory . '/' . $new_name . '(' . $inc . ')')) {
         $inc++;
       }
+
       if($inc != ''){
-        $new_name = '../directory/' . $new_name . '(' . $inc . ')';
+        $new_name = '../' . $directory . '/' . $new_name . '(' . $inc . ')';
       } else {
-        $new_name = '../directory/' . $new_name;
+        $new_name = '../' . $directory . '/' . $new_name;
       }
-      $old_name = '../directory/' . $old_name;
+      $old_name = '../' . $directory . '/' . $old_name;
     } else {
       $inc = '';
-      while(is_dir('../directory/' . $new_name . $inc . '.' . $extention) || is_dir('../directory/' . $new_name . '(' . $inc . ').' . $extention)){
+      while(file_exists('../' . $directory . '/' . $new_name . $inc . $extension) || file_exists('../' . $directoryq . '/' . $new_name . '(' . $inc . ').' . $extension)){
         $inc++;
       }
-      if($inc != ''){
-        $new_name = '../directory/' . $new_name . '(' . $inc . ').' . $extention;
+      if ($inc != ''){
+        $new_name = '../' . $directory . '/' . $new_name . '(' . $inc . ').' . $extension;
       } else {
-        $new_name = '../directory/' . $new_name . '.' . $extention;
+        $new_name = '../' . $directory . '/' .$new_name . '.' . $extension;
       }
-      $old_name = '../directory/' . $old_name . '.' . $extention;
+      $old_name = '../' . $directory . '/' . $old_name . '.' . $extension;
     }
     rename($old_name, $new_name);
-    header('location: ../index.php?ok');
+    header('location: ../index.php?directory=' . $directory . '&sorted_by=' . $sort['name'] . '&sort_flag=' . $sort['flag']);
   }
-}
 
 
-
-/*------folder size function------*/
-
-function folderSize ($dir)
-{
-  $size = 0;
-  if(is_dir($dir)) {
-    foreach (glob(rtrim($dir, '/') . '/*', GLOB_NOSORT) as $each) {
-      $size += is_file($each) ? filesize($each) : folderSize($each);
-    }
-  } else {
-    $size += filesize($dir);
-  }
-  return round($size/1024 , 2) . ' kb';
 }

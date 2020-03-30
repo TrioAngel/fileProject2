@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f25a52b3-2f7b-4d47-a23c-8343e80b2107" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/directory/parolner(1).txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/directory/parolner(2).txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/directory/parolner.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/directory/test1/waf.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/directory/testing/ajnfnd.pptx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/includes/action.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/action.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/upload.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/upload.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -86,7 +84,17 @@
       <workItem from="1583924892425" duration="4670000" />
       <workItem from="1584093751665" duration="6105000" />
       <workItem from="1584108029911" duration="2886000" />
-      <workItem from="1584295968748" duration="1049000" />
+      <workItem from="1584295968748" duration="4194000" />
+      <workItem from="1584436965037" duration="12356000" />
+      <workItem from="1584460971527" duration="3448000" />
+      <workItem from="1584521467505" duration="6095000" />
+      <workItem from="1584602779048" duration="1355000" />
+      <workItem from="1584864287216" duration="5737000" />
+      <workItem from="1584901028598" duration="574000" />
+      <workItem from="1585134682934" duration="6377000" />
+      <workItem from="1585157498068" duration="3707000" />
+      <workItem from="1585506772478" duration="2969000" />
+      <workItem from="1585568380547" duration="5672000" />
     </task>
     <servers />
   </component>
