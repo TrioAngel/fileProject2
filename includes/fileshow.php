@@ -45,7 +45,7 @@ class Fileshow {
         if($row['extension'] == 'folder'){
           $output .= '
             <a href="' .$this->page_url. '&page=1&directory=' .$row['directory']. '&sort_flag=' .$this->sort['flag']. '
-            &sorted_by' .$this->sort['name']. '"><i class="material-icons left">' . $row['icon'] . '</i>Open</a>; 
+            &sorted_by=' .$this->sort['name']. '"><i class="material-icons left">' . $row['icon'] . '</i>Open</a>; 
           ';
         }else {
           $output .= '<a class="disabled"><i class="material-icons left">' . $row['icon'] . '</i>Open</a>';
@@ -82,7 +82,7 @@ class Fileshow {
           if (isset($file['extension'])) {
             $searchArr[$j] = $arrDirectory[$j]['directory'] = $this->directory . '/' . $files[$i];
             $arrDirectory[$j]['extension'] = $extension = $file['extension'];
-            $arrDirectory[$j]['size'] = filesize($arrDirectory[$j]['directory']);
+            $arrDirectory[$j]['size'] = round(filesize($arrDirectory[$j]['directory'])/1024, 2);
             $pos = strpos($files[$i], $extension);
             $arrDirectory[$j]['name'] = substr($files[$i], 0, $pos - 1);
             $arrDirectory[$j]['date'] = date("Y/m/d H:i:s", filemtime($arrDirectory[$j]['directory']));
