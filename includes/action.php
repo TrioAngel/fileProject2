@@ -1,6 +1,6 @@
 <?php
 
-if (isset($_POST['#action'])){
+if (isset($_POST['action'])){
 
 // get directory path
   if (isset($_GET['directory'])){
@@ -14,7 +14,7 @@ if (isset($_POST['#action'])){
     $path = '../' . $_POST['path_name'] . '/' . $_POST['folder_name'];
     if(!file_exists($path)){
       mkdir($path, 0777, true);
-      echo 'Folder Creasted';
+      echo 'Folder Created';
     } else {
       echo 'Folder Already Created';
     }
