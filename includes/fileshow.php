@@ -52,7 +52,7 @@ class Fileshow {
         }
         $output .= '
           </td>
-          <td><form method="post" action="includes/action.php?page=1&directory=' . $this->directory . '
+          <td><form method="post" action="includes/action.php?page=1&directory=' .$this->directory. '
           &sort_flag=' .$this->sort['flag']. '&sorted_by=' .$this->sort['name']. '&cmd=delete">
             <input type="hidden" name="deleteName" value="' .$row['directory']. '">
             <button type="submit" class="btn btn-warning">Delete</button>
@@ -128,13 +128,14 @@ class Fileshow {
   }
 
   public function DirectorySize($dir) {
-    $size = 0;
-
-    foreach (glob(rtrim($dir, '/') . '/*', GLOB_NOSORT) as $each) {
-      $size += is_file($each) ? filesize($each) : folderSize($each);
-    }
-
-    return round($size / 1024 , 2) ;
+      $size = 0;
+      $path = realpath($dir);
+      if ($path !== false && $path != '' && file_exists($path)) {
+        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)) as $object) {
+          $size += $object->getSize();
+        }
+      }
+      return round($size / 1024, 2);
   }
 
   static public function arrayOrderBy()
