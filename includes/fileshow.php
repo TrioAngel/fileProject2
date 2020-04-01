@@ -45,10 +45,10 @@ class Fileshow {
         if($row['extension'] == 'folder'){
           $output .= '
             <a href="' .$this->page_url. '?page=1&directory=' .$row['directory']. '&sort_flag=' .$this->sort['flag']. '
-            &sorted_by=' .$this->sort['name']. '"><i class="material-icons left">' . $row['icon'] . '</i>Open</a>; 
+            &sorted_by=' .$this->sort['name']. '"><i class="' . $row['icon'] . '"></i> Open</a> 
           ';
         }else {
-          $output .= '<a class="disabled"><i class="material-icons left">' . $row['icon'] . '</i>Open</a>';
+          $output .= '<a class="disabled"><i class="' . $row['icon'] . '"></i> Open</a>';
         }
         $output .= '
           </td>
@@ -96,28 +96,28 @@ class Fileshow {
           }
           switch ($arrDirectory[$j]['extension']) {
             case 'folder':
-              $arrDirectory[$j]['icon'] = 'folder_open';
+              $arrDirectory[$j]['icon'] = 'fa fa-folder';
               break;
             case 'jpg':
-              $arrDirectory[$j]['icon'] = 'photo';
+              $arrDirectory[$j]['icon'] = 'fa fa-file-image-o';
               break;
             case 'png':
-              $arrDirectory[$j]['icon'] = 'photo';
+              $arrDirectory[$j]['icon'] = 'fa fa-file-image-o';
               break;
             case 'gif':
-              $arrDirectory[$j]['icon'] = 'photo';
+              $arrDirectory[$j]['icon'] = 'fa fa-file-image-o';
               break;
             case 'mp4':
-              $arrDirectory[$j]['icon'] = 'movie';
+              $arrDirectory[$j]['icon'] = 'fa fa-file-movie-o';
               break;
             case 'pdf':
-              $arrDirectory[$j]['icon'] = 'picture_as_pdf';
+              $arrDirectory[$j]['icon'] = 'fa fa-file-pdf-o';
               break;
             case 'mp3':
-              $arrDirectory[$j]['icon'] = 'music_note';
+              $arrDirectory[$j]['icon'] = 'fa fa-file-audio-o';
               break;
             default:
-              $arrDirectory[$j]['icon'] = 'description';
+              $arrDirectory[$j]['icon'] = 'fa fa-file-text-o';
               break;
           };
           $j++;
