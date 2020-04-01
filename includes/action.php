@@ -68,7 +68,8 @@ if(isset($_GET['cmd'])){
       $old_name = '../' . $directory . '/' . $old_name;
     } else {
       $inc = '';
-      while(file_exists('../' . $directory . '/' . $new_name . $inc . $extension) || file_exists('../' . $directoryq . '/' . $new_name . '(' . $inc . ').' . $extension)){
+      while(file_exists('../' . $directory . '/' . $new_name . $inc . '.' . $extension) ||
+        file_exists('../' . $directoryq . '/' . $new_name . '(' . $inc . ').' . $extension)){
         $inc++;
       }
       if ($inc != ''){
