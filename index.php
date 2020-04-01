@@ -164,6 +164,7 @@ $searchArr = $files->getDirArr()[1];
 					success: function (data) {
 						$('#folderModal').modal('hide');
 						alert(data);
+						location.reload();
 					}
 				})
 			} else {
