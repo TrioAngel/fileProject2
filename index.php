@@ -53,25 +53,6 @@ $searchArr = $files->getDirArr()[1];
 </header>
 
 <main>
-	<div class="container">
-		<nav>
-			<div class="row">
-				<div class="col col-12">
-          <?php
-          for ($i = 0; $i < count($crumbs); $i++){
-            $href = $crumbs[0];
-            for ($j = 0; $j < $i; $j++)
-              $href .= '/' . $crumbs[$j + 1];
-              echo '<h4 id="main-css"><a href="' . $data['page_url'] . '?page=1&directory=' . $href .
-	              '&sort_flag=' . $sort['flag'] . '&sorted_by=' . $sort['name'] . '" class="breadcrumb">'
-	              . ucfirst($crumbs[$i]) . '</a></h4>';
-          }
-          ?>
-				</div>
-			</div>
-		</nav>
-	</div>
-
   <div class="container w-50" >
     <div align="center">
       <button type="button" name="create_folder" id="create_folder" class="btn btn-success">Create Folder</button>
@@ -86,6 +67,25 @@ $searchArr = $files->getDirArr()[1];
 	    <br>
     </div>
   </div>
+	<div class="container">
+		<nav>
+			<div class="row">
+				<div class="col col-12">
+          <?php
+          for ($i = 0; $i < count($crumbs); $i++){
+            $href = $crumbs[0];
+            for ($j = 0; $j < $i; $j++)
+              $href .= '/' . $crumbs[$j + 1];
+            echo '<h4 id="main-css"><a href="' . $data['page_url'] . '?page=1&directory=' . $href .
+              '&sort_flag=' . $sort['flag'] . '&sorted_by=' . $sort['name'] . '" class="breadcrumb">'
+              . ucfirst($crumbs[$i]) . '</a></h4>';
+          }
+          ?>
+				</div>
+			</div>
+		</nav>
+	</div>
+
 	<div class="container w-75">
 		<div id="show_all" name="show_all" class="table-responsive">
 			<?php

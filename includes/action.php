@@ -40,7 +40,7 @@ if(isset($_GET['cmd'])){
     $deleteName = $_POST['deleteName'];
     if(is_dir('../' . $deleteName)){
       rmdir('../' . $deleteName);
-      header('location: ../index.php?directory=' . $directory . '&sorted_by=' . $sort['name'] . '&sort_flag=' . $sort['flag']);
+      header('location: ../index.php?directory=' . $directory . '/' . '&sorted_by=' . $sort['name'] . '&sort_flag=' . $sort['flag']);
     } else {
       unlink('../' . $deleteName);
       header('location: ../index.php?directory=' . $directory . '&sorted_by=' . $sort['name'] . '&sort_flag=' . $sort['flag']);

@@ -56,12 +56,12 @@ class Pagination {
   }
 
   private function pagination_control($current_page, $total_pages, $page_url){
-    echo '<ul class="pagination center">';
+    echo '<ul class="pagination">';
     $previous = $current_page - 1;
     $next = $current_page + 1;
     echo '<li><a href="' . $page_url . '?page=1&directory=' . $this->directory . '&sort_flag=' . $this->sort['flag'] . '&sorted_by=' . $this->sort['name'] . '"><<<</a></li>';
     if ($current_page >= 2) {
-      echo '<li><a href="' . $page_url . '?page=' . $previous . '&directory=' . $this->directory . '&sort_flag=' . $this->sort['flag'] . '&sorted_by=' . $this->sort['name'] . '"><<</a></li>';
+      echo '<li><a href="' . $page_url . '?page=' . $previous . '&directory=' . $this->directory . '&sort_flag=' . $this->sort['flag'] . '&sorted_by=' . $this->sort['name'] . '"><< </a></li>';
     }
     $start_page = 1;
     if($current_page <= $total_pages && $current_page > ($start_page +2)){
@@ -75,16 +75,16 @@ class Pagination {
 
     for($start_page; $start_page <= $end_page; $start_page++){
       if($current_page == $start_page){
-        echo '<li class="active"><a href="#">' . $start_page . '</a></li>';
+        echo '<li class="active"><a href="#"> ' . $start_page . ' </a></li>';
       } else {
-        echo '<li><a href="' . $page_url . '?page=' . $start_page . '&directory=' . $this->directory . '&sort_flag=' . $this->sort['flag'] . '&sorted_by=' . $this->sort['name'] . '">' . $start_page . '</a></li>';
+        echo '<li><a href="' . $page_url . '?page=' . $start_page . '&directory=' . $this->directory . '&sort_flag=' . $this->sort['flag'] . '&sorted_by=' . $this->sort['name'] . '"> ' . $start_page . ' </a></li>';
       }
     }
 
     if($current_page < $total_pages){
-      echo '<li><a href="' . $page_url . '?page=' . $next . '&directory=' . $this->directory . '&sort_flag=' . $this->sort['flag'] . '&sorted_by=' . $this->sort['name'] . '">>></a></li>';
+      echo '<li><a href="' . $page_url . '?page=' . $next . '&directory=' . $this->directory . '&sort_flag=' . $this->sort['flag'] . '&sorted_by=' . $this->sort['name'] . '"> >></a></li>';
     }
-    echo '<li><a href="' . $page_url . '?page=' . $total_pages . '&directory=' . $this->directory . '&sort_flag=' . $this->sort['flag'] . '&sorted_by=' . $this->sort['name'] . '">>>></a></li>';
+    echo '<li><a href="' . $page_url . '?page=' . $total_pages . '&directory=' . $this->directory . '&sort_flag=' . $this->sort['flag'] . '&sorted_by=' . $this->sort['name'] . '"> >>></a></li>';
     echo  '</ul>';
   }
 
