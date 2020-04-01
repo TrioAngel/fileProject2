@@ -32,7 +32,7 @@ class Pagination {
     }
 
     $total_pages = $this->total_pages($data);
-    if(isset($_GET['page']){
+    if(isset($_GET['page'])){
       $current_page = $_GET['page'];
     } else {
       $current_page = '';

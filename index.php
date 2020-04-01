@@ -9,6 +9,7 @@ if(isset($_GET['directory'])){
 	$directory = 'directory';
 }
 
+$crumbs = explode('/', $directory);
 if(isset($_GET['sorted_by'])){
 	$sort['name'] = $_GET['sorted_by'];
 } else {
@@ -16,12 +17,13 @@ if(isset($_GET['sorted_by'])){
 }
 
 if(isset($_GET['sort_flag'])){
-	$sort_flag = (int)$_GET['sort_flag'];
+	$sort['flag'] = (int)$_GET['sort_flag'];
 }else {
-	$sort_flag = 4;
+  $sort['flag'] = 4;
 }
 
 require_once ('includes/fileshow.php');
+require_once ('includes/pagination.php');
 
 $data['page_url'] = './index.php';
 $files = new Fileshow($directory, $sort, $data['page_url']);
@@ -50,6 +52,25 @@ $searchArr = $files->getDirArr()[1];
 </header>
 
 <main>
+	<div class="container">
+		<nav>
+			<div class="row">
+				<div class="col col-12">
+          <?php
+          for ($i = 0; $i < count($crumbs); $i++){
+            $href = $crumbs[0];
+            for ($j = 0; $j < $i; $j++)
+              $href .= '/' . $crumbs[$j + 1];
+              echo '<h4 id="main-css"><a href="' . $data['page_url'] . '?page=1&directory=' . $href .
+	              '&sort_flag=' . $sort['flag'] . '&sorted_by=' . $sort['name'] . '" class="breadcrumb">'
+	              . ucfirst($crumbs[$i]) . '</a></h4>';
+          }
+          ?>
+				</div>
+			</div>
+		</nav>
+	</div>
+
   <div class="container w-50" >
     <div align="center">
       <button type="button" name="create_folder" id="create_folder" class="btn btn-success">Create Folder</button>
@@ -67,7 +88,18 @@ $searchArr = $files->getDirArr()[1];
 	<div class="container w-75">
 		<div id="show_all" name="show_all" class="table-responsive">
 			<?php
-				$files->showpage(0,5);
+				$count_table_row = $files->count_table_row();
+				if($count_table_row){
+					$data['total_rec'] = $count_table_row;
+					$data['rec_per_page'] = 5;
+					$page = new Pagination($directory, $sort);
+					$start_rec = $page->start_rec($data);
+					$rec_per_page = $data['rec_per_page'];
+					$files->showpage($start_rec, $rec_per_page);
+					$page->page_display($data);
+				} else {
+          echo '<h5 class="center">No data available...</h5>';
+        }
 			?>
 		</div>
 	</div>

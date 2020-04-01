@@ -44,7 +44,7 @@ class Fileshow {
         ';
         if($row['extension'] == 'folder'){
           $output .= '
-            <a href="' .$this->page_url. '&page=1&directory=' .$row['directory']. '&sort_flag=' .$this->sort['flag']. '
+            <a href="' .$this->page_url. '?page=1&directory=' .$row['directory']. '&sort_flag=' .$this->sort['flag']. '
             &sorted_by=' .$this->sort['name']. '"><i class="material-icons left">' . $row['icon'] . '</i>Open</a>; 
           ';
         }else {
