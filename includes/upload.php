@@ -43,9 +43,9 @@ if (isset($_POST['upload_button'])){
   $checkName['fileError'] = $file['error'];
 
   if ($checkName['fileError'] === 0) {
-    $fileDestination = '../directory/' . $checkName['fileName'];
+    $fileDestination = '../' . $directory . '/' . $checkName['fileName'];
     move_uploaded_file($checkName['tmpName'], $fileDestination);
-    header('Location: ../index.php');
+    header('Location: ../index.php?direction=' . $directory);
     exit();
   }
   else {

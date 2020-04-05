@@ -52,8 +52,8 @@ class Fileshow {
         }
         $output .= '
           </td>
-          <td><form method="post" action="includes/action.php?page=1&directory=' .$this->directory. '
-          &sort_flag=' .$this->sort['flag']. '&sorted_by=' .$this->sort['name']. '&cmd=delete">
+          <td><form action="includes/action.php?page=1&directory=' . $this->directory . '
+          &sort_flag=' .$this->sort['flag']. '&sorted_by=' .$this->sort['name']. '&cmd=delete"  method="post">
             <input type="hidden" name="deleteName" value="' .$row['directory']. '">
             <button type="submit" class="btn btn-warning">Delete</button>
           </form></td>
