@@ -6,7 +6,6 @@ if (isset($_FILES['file'])) {
   } else {
     $directory = 'directory';
   }
-  print_r($_POST);
   require_once('fileshow.php');
   $sort['name'] = 'name';
   $sort['flag'] = 4;
@@ -17,33 +16,33 @@ if (isset($_FILES['file'])) {
     header('location: ../index.php?directory=' . $directory);
   }
 
-  $arrayOne = [];
+  $checkArr = [];
   $file = $_FILES['file'];
-  $arrayOne['fileName'] = $file['name'];
-  $fileExt = explode('.', $arrayOne['fileName']);
-  $arrayOne['fileActualExt'] = strtolower(end($fileExt));
+  $checkArr['fileName'] = $file['name'];
+  $fileExt = explode('.', $checkArr['fileName']);
+  $checkArr['fileActualExt'] = strtolower(end($fileExt));
   $inc = '';
-  $pos = strpos($arrayOne['fileName'], '.' . $arrayOne['fileActualExt']);
-  $arrayOne['name'] = substr($arrayOne['fileName'], 0, $pos);
-  while(file_exists('../' . $directory . '/' . $arrayOne['name'] . $inc . '.' . $arrayOne['fileActualExt']) ||
-    file_exists('../' . $directory . '/' . $arrayOne['name'] . '(' . $inc . ').' . $arrayOne['fileActualExt'])) {
+  $pos = strpos($checkArr['fileName'], '.' . $checkArr['fileActualExt']);
+  $checkArr['name'] = substr($checkArr['fileName'], 0, $pos);
+  while(file_exists('../' . $directory . '/' . $checkArr['name'] . $inc . '.' . $checkArr['fileActualExt']) ||
+    file_exists('../' . $directory . '/' . $checkArr['name'] . '(' . $inc . ').' . $checkArr['fileActualExt'])) {
     $inc++;
   }
   if ($inc != '') {
-    $arrayOne['fileName'] = $arrayOne['name'] . '(' . $inc . ').' . $arrayOne['fileActualExt'];
+    $checkArr['fileName'] = $checkArr['name'] . '(' . $inc . ').' . $checkArr['fileActualExt'];
   } else {
-    $arrayOne['fileName'] = $arrayOne['name'] . $inc . '.' . $arrayOne['fileActualExt'];
+    $checkArr['fileName'] = $checkArr['name'] . $inc . '.' . $checkArr['fileActualExt'];
   }
-  $arrayOne['path'] = '../' . $directory . '/' . $arrayOne['fileName'];
+  $checkArr['path'] = '../' . $directory . '/' . $checkArr['fileName'];
   // end of RENAME
-  $pos = strpos($arrayOne['fileName'], '.' . $arrayOne['fileActualExt']);
-  $arrayOne['name'] = substr($arrayOne['fileName'], 0, $pos);
-  $arrayOne['tmpName'] = $file['tmp_name'];
-  $arrayOne['fileSize'] = $file['size'];
-  $arrayOne['fileError'] = $file['error'];
+  $pos = strpos($checkArr['fileName'], '.' . $checkArr['fileActualExt']);
+  $checkArr['name'] = substr($checkArr['fileName'], 0, $pos);
+  $checkArr['tmpName'] = $file['tmp_name'];
+  $checkArr['fileSize'] = $file['size'];
+  $checkArr['fileError'] = $file['error'];
 
-  if ($arrayOne['fileError'] === 0) {
-    move_uploaded_file($arrayOne['tmpName'], $arrayOne['path']);
+  if ($checkArr['fileError'] === 0) {
+    move_uploaded_file($checkArr['tmpName'], $checkArr['path']);
     header('Location: ../index.php?directory=' . $directory);
   } else {
     echo "There was an error uploading your file!";
