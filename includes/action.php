@@ -52,6 +52,7 @@ if(isset($_GET['cmd'])){
     $directory = $_GET['directory'];
     if($old_name == $new_name){
       header('location: ../index.php?directory=' . $directory . '&sorted_by=' . $sort['name'] . '&sort_flag=' . $sort['flag']);
+      die();
     }
     $extension = $_POST['extension'];
     if($extension == 'folder'){
