@@ -69,7 +69,7 @@ if(isset($_GET['cmd'])){
     } else {
       $inc = '';
       while(file_exists('../' . $directory . '/' . $new_name . $inc . '.' . $extension) ||
-        file_exists('../' . $directoryq . '/' . $new_name . '(' . $inc . ').' . $extension)){
+        file_exists('../' . $directory . '/' . $new_name . '(' . $inc . ').' . $extension)){
         $inc++;
       }
       if ($inc != ''){
