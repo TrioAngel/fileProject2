@@ -39,6 +39,10 @@ if(isset($_GET['cmd'])){
     $sort['flag'] = $_GET['sort_flag'];
     $deleteName = $_POST['deleteName'];
     if(is_dir('../' . $deleteName)){
+      $deleteItems = scandir('../' . $deleteName);
+      foreach ($deleteItems as $deleteItem){
+        unlink('../' . $deleteName . '/' . $deleteItem);
+      }
       rmdir('../' . $deleteName);
       header('location: ../index.php?directory=' . $directory);
     } else {

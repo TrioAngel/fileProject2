@@ -54,7 +54,7 @@ class Pagination {
   }
 
   private function pagination_control($current_page, $total_pages, $page_url){
-    echo "<ul class='pagination text-center'>";
+    echo "<ul class='pagination'>";
     $prev = $current_page - 1;
     $next = $current_page + 1;
     echo '<li><a href="'. $page_url .'?page=1&directory='. $this->directory .'&sort_flag='. $this->sort['flag'] .'&sorted_by='. $this->sort['name'] .'"> <<< </a></li>';
