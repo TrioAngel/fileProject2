@@ -97,7 +97,7 @@ $searchArr = $files->getDirArr()[1];
 					$start_rec = $page->start_rec($data);
 					$rec_per_page = $data['rec_per_page'];
 					$files->showpage($start_rec, $rec_per_page);
-					$page->page_display($data);
+					$page->pagination_display($data);
 				} else {
           echo '<h5 class="center">No data available...</h5>';
         }
