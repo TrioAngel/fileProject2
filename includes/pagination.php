@@ -75,13 +75,20 @@ class Pagination {
       $end_page = $total_pages;
     }
 
-		for($start_page; $start_page <= $end_page; $start_page++){
+		for($start_page; $start_page <= ($current_page + 2); $start_page++){
 		  if($current_page == $start_page){
         echo '<li class="page-item active"><a class="page-link" href="#" >' . $start_page . '</a></li>';
       } else {
-        echo '<li class="page-item"><a class="page-link" href="' . $page_url . '?page=' . $start_page . '&directory=' . $this->directory . '&sort_flag=' . $this->sort['flag'] . '&sorted_by=' . $this->sort['name'] .'">' . $start_page . '</a></li>';
+        echo '<li class="page-item"><a class="page-link" href="' . $page_url . '?page=' . $start_page . '&directory=' . $this->directory . '&sort_flag=' . $this->sort['flag'] . '&sorted_by=' . $this->sort['name'] .'">' . $start_page .'</a></li>';
       }
     }
+
+		if($current_page < ($end_page - 2)){
+      echo '<li class="page-item disabled"><a class="page-link" href="#" >...</a></li>';
+      echo '<li class="page-item"><a class="page-link" href="' . $page_url . '?page=' . $total_pages . '&directory=' . $this->directory . '&sort_flag=' . $this->sort['flag'] . '&sorted_by=' . $this->sort['name'] .'">' . $total_pages .'</a></li>';
+    }
+
+
 
 		if($current_page < $total_pages){
       echo '<li class="page-item"><a class="page-link" href="' . $page_url . '?page=' . $next . '&directory=' . $this->directory . '&sort_flag=' . $this->sort['flag'] . '&sorted_by=' . $this->sort['name'] .'">>></a></li>';
