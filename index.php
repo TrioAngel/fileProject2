@@ -92,7 +92,7 @@ $searchArr = $files->getDirArr()[1];
 				$count_table_row = $files->count_table_row();
 				if($count_table_row){
 					$data['total_rec'] = $count_table_row;
-					$data['rec_per_page'] = 1;
+					$data['rec_per_page'] = 5;
 					$page = new Pagination($directory, $sort);
 					$start_rec = $page->start_rec($data);
 					$rec_per_page = $data['rec_per_page'];
