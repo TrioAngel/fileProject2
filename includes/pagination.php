@@ -75,7 +75,7 @@ class Pagination {
       $end_page = $total_pages;
     }
 
-		for($start_page; $start_page <= ($current_page + 2); $start_page++){
+		for($start_page; $start_page < ($current_page + 2); $start_page++){
 		  if($current_page == $start_page){
         echo '<li class="page-item active"><a class="page-link" href="#" >' . $start_page . '</a></li>';
       } else {
